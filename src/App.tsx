@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import Finance from './pages/Finance';
 import Analytics from './pages/Analytics';
+import Notes from './pages/Notes';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 
@@ -40,6 +41,7 @@ const AppRoutes: React.FC = () => {
         <Route path="tasks" element={<Tasks />} />
         <Route path="finance" element={<Finance />} />
         <Route path="analytics" element={<Analytics />} />
+        <Route path="notes" element={<Notes />} />
         <Route path="profile" element={<Profile />} />
         <Route path="settings" element={<Settings />} />
       </Route>

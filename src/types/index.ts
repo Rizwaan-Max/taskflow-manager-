@@ -39,3 +39,15 @@ export interface DashboardStats {
   totalExpenses: number;
   monthlyBalance: number;
 }
+
+export interface Note {
+  id: string;
+  title: string;
+  content?: string;
+  category?: string;
+  color: 'yellow' | 'blue' | 'green' | 'pink' | 'purple' | 'orange';
+  pinned: boolean;
+  created_at: string;
+  updated_at?: string;
+  user_id: string;
+}

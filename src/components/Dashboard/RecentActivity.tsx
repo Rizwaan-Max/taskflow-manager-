@@ -1,9 +1,9 @@
 import React from 'react';
-import { CheckSquare, DollarSign, TrendingUp, TrendingDown } from 'lucide-react';
+import { CheckSquare, DollarSign, TrendingUp, TrendingDown, StickyNote } from 'lucide-react';
 
 interface ActivityItem {
   id: string;
-  type: 'task' | 'income' | 'expense';
+  type: 'task' | 'income' | 'expense' | 'note';
   title: string;
   time: string;
   amount?: number;
@@ -22,6 +22,8 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ activities }) => {
         return <TrendingUp className="h-4 w-4 text-green-500" />;
       case 'expense':
         return <TrendingDown className="h-4 w-4 text-red-500" />;
+      case 'note':
+        return <StickyNote className="h-4 w-4 text-orange-500" />;
       default:
         return <DollarSign className="h-4 w-4 text-gray-500" />;
     }

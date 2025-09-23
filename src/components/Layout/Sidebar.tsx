@@ -5,6 +5,7 @@ import {
   CheckSquare, 
   DollarSign, 
   BarChart3,
+  StickyNote,
   User, 
   Settings,
   LogOut
@@ -19,6 +20,7 @@ const Sidebar: React.FC = () => {
     { name: 'Tasks', href: '/tasks', icon: CheckSquare },
     { name: 'Finance', href: '/finance', icon: DollarSign },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+    { name: 'Notes', href: '/notes', icon: StickyNote },
     { name: 'Profile', href: '/profile', icon: User },
     { name: 'Settings', href: '/settings', icon: Settings },
   ];

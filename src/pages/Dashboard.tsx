@@ -6,7 +6,7 @@ import QuickActions from '../components/Dashboard/QuickActions';
 import RecentActivity from '../components/Dashboard/RecentActivity';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
-import { Task, Transaction } from '../types';
+import { Task, Transaction, Note } from '../types';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
     totalIncome: 0,
     totalExpenses: 0,
     monthlyBalance: 0,
+    totalNotes: 0,
   });
   const [recentActivities, setRecentActivities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,12 @@ const Dashboard: React.FC = () => {
         .gte('date', firstDay.toISOString().split('T')[0])
         .lte('date', lastDay.toISOString().split('T')[0]);
 
+      // Fetch notes
+      const { data: notes } = await supabase
+        .from('notes')
+        .select('*')
+        .eq('user_id', user?.id);
+
       // Calculate stats
       const completedTasks = tasks?.filter(task => task.completed).length || 0;
       const pendingTasks = tasks?.filter(task => !task.completed).length || 0;
@@ -66,6 +73,7 @@ const Dashboard: React.FC = () => {
         totalIncome: income,
         totalExpenses: expenses,
         monthlyBalance: income - expenses,
+        totalNotes: notes?.length || 0,
       });
 
       // Recent activities (combine recent tasks and transactions)
@@ -84,7 +92,14 @@ const Dashboard: React.FC = () => {
         amount: transaction.amount,
       })) || [];
 
-      const combined = [...recentTasks, ...recentTransactions]
+      const recentNotes = notes?.slice(-2).map(note => ({
+        id: note.id,
+        type: 'note',
+        title: `Created note: ${note.title}`,
+        time: new Date(note.created_at).toLocaleTimeString(),
+      })) || [];
+
+      const combined = [...recentTasks, ...recentTransactions, ...recentNotes]
         .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
         .slice(0, 5);
 

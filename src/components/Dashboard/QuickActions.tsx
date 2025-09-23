@@ -1,5 +1,6 @@
 import React from 'react';
-import { Plus, CheckSquare, DollarSign, FileText } from 'lucide-react';
+import { Plus, CheckSquare, DollarSign, StickyNote } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface QuickAction {
   title: string;
@@ -15,6 +16,8 @@ interface QuickActionsProps {
 }
 
 const QuickActions: React.FC<QuickActionsProps> = ({ onAddTask, onAddTransaction }) => {
+  const navigate = useNavigate();
+
   const actions: QuickAction[] = [
     {
       title: 'Add Task',
@@ -38,11 +41,11 @@ const QuickActions: React.FC<QuickActionsProps> = ({ onAddTask, onAddTransaction
       onClick: () => onAddTransaction(),
     },
     {
-      title: 'Quick Note',
-      description: 'Jot down a note',
-      icon: FileText,
+      title: 'Add Note',
+      description: 'Quick note',
+      icon: StickyNote,
       color: 'bg-orange-500 hover:bg-orange-600',
-      onClick: () => console.log('Add note'),
+      onClick: () => navigate('/notes'),
     },
   ];
 
