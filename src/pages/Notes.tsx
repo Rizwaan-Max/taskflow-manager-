@@ -138,11 +138,11 @@ const Notes: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Header title="Notes" subtitle="Capture your thoughts and ideas" />
       
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Header Actions */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6">
           <div className="flex items-center space-x-4 w-full sm:w-auto">
-            <div className="relative flex-1 sm:w-64">
+            <div className="relative flex-1 sm:w-64 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <input
                 type="text"
@@ -156,7 +156,7 @@ const Notes: React.FC = () => {
           
           <button
             onClick={() => setShowForm(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors w-full sm:w-auto justify-center"
           >
             <Plus className="h-4 w-4" />
             <span>Add Note</span>
@@ -164,16 +164,16 @@ const Notes: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-4 mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 sm:mb-6 bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center space-x-2">
             <Filter className="h-4 w-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-700">Filters:</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-700">Filters:</span>
           </div>
           
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="border border-gray-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="border border-gray-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Categories</option>
             {categories.map((category) => (
@@ -185,17 +185,18 @@ const Notes: React.FC = () => {
           
           <button
             onClick={() => setShowPinnedOnly(!showPinnedOnly)}
-            className={`flex items-center space-x-1 px-3 py-1 rounded text-sm transition-colors ${
+            className={`flex items-center space-x-1 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm transition-colors ${
               showPinnedOnly
                 ? 'bg-blue-100 text-blue-700 border border-blue-300'
                 : 'bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200'
             }`}
           >
             <Pin className="h-3 w-3" />
-            <span>Pinned Only</span>
+            <span className="hidden sm:inline">Pinned Only</span>
+            <span className="sm:hidden">Pinned</span>
           </button>
           
-          <span className="text-xs text-gray-500 ml-auto">
+          <span className="text-xs text-gray-500 ml-auto hidden sm:inline">
             Showing {filteredNotes.length} of {notes.length} notes
           </span>
         </div>
@@ -205,11 +206,11 @@ const Notes: React.FC = () => {
           {/* Pinned Notes */}
           {pinnedNotes.length > 0 && !showPinnedOnly && (
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 flex items-center">
                 <Pin className="h-5 w-5 mr-2 text-blue-600" />
                 Pinned Notes
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                 {pinnedNotes.map((note) => (
                   <NoteCard
                     key={note.id}
@@ -230,9 +231,9 @@ const Notes: React.FC = () => {
           {unpinnedNotes.length > 0 && !showPinnedOnly && (
             <div>
               {pinnedNotes.length > 0 && (
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Other Notes</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Other Notes</h3>
               )}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                 {unpinnedNotes.map((note) => (
                   <NoteCard
                     key={note.id}
@@ -251,7 +252,7 @@ const Notes: React.FC = () => {
 
           {/* Show all filtered notes when pinned only is active */}
           {showPinnedOnly && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
               {filteredNotes.map((note) => (
                 <NoteCard
                   key={note.id}
@@ -269,12 +270,12 @@ const Notes: React.FC = () => {
 
           {/* Empty State */}
           {filteredNotes.length === 0 && (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
               <div className="text-gray-400 mb-4">
-                <StickyNote className="h-12 w-12 mx-auto" />
+                <StickyNote className="h-8 w-8 sm:h-12 sm:w-12 mx-auto" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No notes found</h3>
-              <p className="text-gray-500 mb-4">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No notes found</h3>
+              <p className="text-sm sm:text-base text-gray-500 mb-4">
                 {searchTerm || filterCategory !== 'all' || showPinnedOnly
                   ? 'Try adjusting your search or filters'
                   : 'Start capturing your thoughts and ideas'}

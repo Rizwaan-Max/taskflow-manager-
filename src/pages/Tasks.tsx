@@ -135,11 +135,11 @@ const Tasks: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Header title="Tasks" subtitle="Manage your tasks and stay organized" />
       
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Header Actions */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6">
           <div className="flex items-center space-x-4 w-full sm:w-auto">
-            <div className="relative flex-1 sm:w-64">
+            <div className="relative flex-1 sm:w-64 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <input
                 type="text"
@@ -153,7 +153,7 @@ const Tasks: React.FC = () => {
           
           <button
             onClick={() => setShowForm(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors w-full sm:w-auto justify-center"
           >
             <Plus className="h-4 w-4" />
             <span>Add Task</span>
@@ -161,16 +161,16 @@ const Tasks: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-4 mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 sm:mb-6 bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center space-x-2">
             <Filter className="h-4 w-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-700">Filters:</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-700">Filters:</span>
           </div>
           
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as any)}
-            className="border border-gray-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="border border-gray-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -180,7 +180,7 @@ const Tasks: React.FC = () => {
           <select
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value as any)}
-            className="border border-gray-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="border border-gray-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Priorities</option>
             <option value="high">High</option>
@@ -188,7 +188,7 @@ const Tasks: React.FC = () => {
             <option value="low">Low</option>
           </select>
           
-          <span className="text-xs text-gray-500 ml-auto">
+          <span className="text-xs text-gray-500 ml-auto hidden sm:inline">
             Showing {filteredTasks.length} of {tasks.length} tasks
           </span>
         </div>
@@ -196,12 +196,12 @@ const Tasks: React.FC = () => {
         {/* Tasks List */}
         <div className="space-y-4">
           {filteredTasks.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 sm:p-12 text-center">
               <div className="text-gray-400 mb-4">
-                <CheckSquare className="h-12 w-12 mx-auto" />
+                <CheckSquare className="h-8 w-8 sm:h-12 sm:w-12 mx-auto" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
-              <p className="text-gray-500 mb-4">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
+              <p className="text-sm sm:text-base text-gray-500 mb-4">
                 {searchTerm || filterPriority !== 'all' || filterStatus !== 'all'
                   ? 'Try adjusting your search or filters'
                   : 'Get started by creating your first task'}

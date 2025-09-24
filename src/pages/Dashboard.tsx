@@ -136,9 +136,9 @@ const Dashboard: React.FC = () => {
         subtitle="Welcome back! Here's what's happening with your tasks and finances." 
       />
       
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <StatsCard
             title="Total Tasks"
             value={stats.totalTasks}
@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Quick Actions */}
           <div className="lg:col-span-1">
             <QuickActions 
@@ -189,10 +189,10 @@ const Dashboard: React.FC = () => {
 
         {/* Overdue Tasks Alert */}
         {stats.overdueTasks > 0 && (
-          <div className="mt-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-lg">
+          <div className="mt-4 sm:mt-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-lg">
             <div className="flex">
               <div className="ml-3">
-                <h3 className="text-sm font-medium text-red-800">
+                <h3 className="text-sm sm:text-base font-medium text-red-800">
                   {stats.overdueTasks} overdue task{stats.overdueTasks > 1 ? 's' : ''}
                 </h3>
                 <p className="mt-1 text-sm text-red-700">

@@ -145,19 +145,19 @@ const Finance: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Header title="Finance" subtitle="Track your income and expenses" />
       
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Monthly Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Monthly Income</p>
-                <p className="text-2xl font-semibold text-green-600 mt-1">
+                <p className="text-lg sm:text-2xl font-semibold text-green-600 mt-1 break-all">
                   {formatCurrency(monthlyStats.totalIncome)}
                 </p>
               </div>
-              <div className="p-3 rounded-lg bg-green-500">
-                <TrendingUp className="h-6 w-6 text-white" />
+              <div className="p-2 sm:p-3 rounded-lg bg-green-500 flex-shrink-0">
+                <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
             </div>
           </div>
@@ -166,12 +166,12 @@ const Finance: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Monthly Expenses</p>
-                <p className="text-2xl font-semibold text-red-600 mt-1">
+                <p className="text-lg sm:text-2xl font-semibold text-red-600 mt-1 break-all">
                   {formatCurrency(monthlyStats.totalExpenses)}
                 </p>
               </div>
-              <div className="p-3 rounded-lg bg-red-500">
-                <TrendingDown className="h-6 w-6 text-white" />
+              <div className="p-2 sm:p-3 rounded-lg bg-red-500 flex-shrink-0">
+                <TrendingDown className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
             </div>
           </div>
@@ -182,14 +182,14 @@ const Finance: React.FC = () => {
                 <p className="text-sm font-medium text-gray-600">Monthly Balance</p>
                 <p className={`text-2xl font-semibold mt-1 ${
                   monthlyStats.balance >= 0 ? 'text-green-600' : 'text-red-600'
-                }`}>
+                } break-all`}>
                   {formatCurrency(monthlyStats.balance)}
                 </p>
               </div>
               <div className={`p-3 rounded-lg ${
                 monthlyStats.balance >= 0 ? 'bg-green-500' : 'bg-red-500'
-              }`}>
-                <DollarSign className="h-6 w-6 text-white" />
+              } flex-shrink-0`}>
+                <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
             </div>
           </div>
@@ -198,21 +198,21 @@ const Finance: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Transactions</p>
-                <p className="text-2xl font-semibold text-blue-600 mt-1">
+                <p className="text-lg sm:text-2xl font-semibold text-blue-600 mt-1">
                   {monthlyStats.transactionCount}
                 </p>
               </div>
-              <div className="p-3 rounded-lg bg-blue-500">
-                <PieChart className="h-6 w-6 text-white" />
+              <div className="p-2 sm:p-3 rounded-lg bg-blue-500 flex-shrink-0">
+                <PieChart className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Header Actions */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6">
           <div className="flex items-center space-x-4 w-full sm:w-auto">
-            <div className="relative flex-1 sm:w-64">
+            <div className="relative flex-1 sm:w-64 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <input
                 type="text"
@@ -226,7 +226,7 @@ const Finance: React.FC = () => {
           
           <button
             onClick={() => setShowForm(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors w-full sm:w-auto justify-center"
           >
             <Plus className="h-4 w-4" />
             <span>Add Transaction</span>
@@ -234,16 +234,16 @@ const Finance: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-4 mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 sm:mb-6 bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-200">
           <div className="flex items-center space-x-2">
             <Filter className="h-4 w-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-700">Filters:</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-700">Filters:</span>
           </div>
           
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value as any)}
-            className="border border-gray-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="border border-gray-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Types</option>
             <option value="income">Income</option>
@@ -253,7 +253,7 @@ const Finance: React.FC = () => {
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="border border-gray-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="border border-gray-300 rounded px-2 sm:px-3 py-1 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Categories</option>
             {categories.map((category) => (
@@ -263,7 +263,7 @@ const Finance: React.FC = () => {
             ))}
           </select>
           
-          <span className="text-xs text-gray-500 ml-auto">
+          <span className="text-xs text-gray-500 ml-auto hidden sm:inline">
             Showing {filteredTransactions.length} of {transactions.length} transactions
           </span>
         </div>

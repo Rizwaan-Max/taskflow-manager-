@@ -50,18 +50,18 @@ const QuickActions: React.FC<QuickActionsProps> = ({ onAddTask, onAddTransaction
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-      <div className="grid grid-cols-2 gap-4">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+      <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+      <div className="grid grid-cols-2 gap-2 sm:gap-4">
         {actions.map((action, index) => (
           <button
             key={index}
             onClick={action.onClick}
-            className={`${action.color} text-white p-4 rounded-lg transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md`}
+            className={`${action.color} text-white p-3 sm:p-4 rounded-lg transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md`}
           >
-            <action.icon className="h-6 w-6 mx-auto mb-2" />
-            <p className="font-medium text-sm">{action.title}</p>
-            <p className="text-xs opacity-90">{action.description}</p>
+            <action.icon className="h-5 w-5 sm:h-6 sm:w-6 mx-auto mb-2" />
+            <p className="font-medium text-xs sm:text-sm">{action.title}</p>
+            <p className="text-xs opacity-90 hidden sm:block">{action.description}</p>
           </button>
         ))}
       </div>
