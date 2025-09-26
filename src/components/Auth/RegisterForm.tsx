@@ -35,10 +35,10 @@ const RegisterForm: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6 sm:space-y-8 p-6 sm:p-8 bg-white rounded-xl shadow-lg">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 bg-blue-600 rounded-lg flex items-center justify-center">
-            <UserPlus className="h-6 w-6 text-white" />
+          <div className="mx-auto h-16 w-16 mb-4">
+            <img src="/Untitled design.png" alt="WORKLOOP" className="h-full w-full object-contain" />
           </div>
-          <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold text-gray-900">Create your account</h2>
+          <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-gray-900">Join WORKLOOP</h2>
           <p className="mt-2 text-sm sm:text-base text-gray-600">
             Already have an account?{' '}
             <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">

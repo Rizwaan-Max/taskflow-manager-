@@ -133,7 +133,7 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Header 
         title="Dashboard" 
-        subtitle="Welcome back! Here's what's happening with your tasks and finances." 
+        subtitle="Welcome to WORKLOOP! Here's your productivity overview." 
       />
       
       <div className="p-4 sm:p-6">

@@ -133,7 +133,7 @@ const Tasks: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="Tasks" subtitle="Manage your tasks and stay organized" />
+      <Header title="Tasks" subtitle="Organize your work and boost productivity" />
       
       <div className="p-4 sm:p-6">
         {/* Header Actions */}

@@ -143,7 +143,7 @@ const Finance: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="Finance" subtitle="Track your income and expenses" />
+      <Header title="Finance" subtitle="Master your financial workflow" />
       
       <div className="p-4 sm:p-6">
         {/* Monthly Stats */}

@@ -41,7 +41,10 @@ const Sidebar: React.FC = () => {
       {/* Mobile menu button */}
       <div className="lg:hidden bg-gray-900 text-white p-4 flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-blue-400">TaskFlow</h1>
+          <div className="flex items-center space-x-2">
+            <img src="/Untitled design.png" alt="WORKLOOP" className="h-8 w-8" />
+            <h1 className="text-lg font-bold text-orange-300">WORKLOOP</h1>
+          </div>
           <p className="text-gray-400 text-xs">Welcome, {user?.user_metadata?.full_name || 'User'}</p>
         </div>
         <button
@@ -69,14 +72,20 @@ const Sidebar: React.FC = () => {
       `}>
         {/* Desktop header */}
         <div className="hidden lg:block p-6">
-          <h1 className="text-2xl font-bold text-blue-400">TaskFlow Manager</h1>
+          <div className="flex items-center space-x-3 mb-2">
+            <img src="/Untitled design.png" alt="WORKLOOP" className="h-10 w-10" />
+            <h1 className="text-2xl font-bold text-orange-300">WORKLOOP</h1>
+          </div>
           <p className="text-gray-400 text-sm mt-1">Welcome, {user?.user_metadata?.full_name || 'User'}</p>
         </div>
 
         {/* Mobile header */}
         <div className="lg:hidden p-4 border-b border-gray-700 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-blue-400">TaskFlow Manager</h1>
+            <div className="flex items-center space-x-2">
+              <img src="/Untitled design.png" alt="WORKLOOP" className="h-8 w-8" />
+              <h1 className="text-xl font-bold text-orange-300">WORKLOOP</h1>
+            </div>
             <p className="text-gray-400 text-sm mt-1">Welcome, {user?.user_metadata?.full_name || 'User'}</p>
           </div>
           <button

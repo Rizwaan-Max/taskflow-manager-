@@ -115,7 +115,7 @@ const Analytics: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="Analytics" subtitle="Visualize your financial data and spending patterns" />
+      <Header title="Analytics" subtitle="Insights into your productivity and financial patterns" />
       
       <div className="p-6">
         {/* Time Range Selector */}

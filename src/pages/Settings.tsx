@@ -44,7 +44,7 @@ const Settings: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="Settings" subtitle="Customize your TaskFlow experience" />
+      <Header title="Settings" subtitle="Customize your WORKLOOP experience" />
       
       <div className="p-6 max-w-4xl mx-auto">
         {/* Notifications */}

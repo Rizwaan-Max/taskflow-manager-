@@ -136,7 +136,7 @@ const Notes: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="Notes" subtitle="Capture your thoughts and ideas" />
+      <Header title="Notes" subtitle="Capture ideas and streamline your workflow" />
       
       <div className="p-4 sm:p-6">
         {/* Header Actions */}

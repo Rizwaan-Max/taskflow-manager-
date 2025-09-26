@@ -1,6 +1,6 @@
-# TaskFlow Manager
+# WORKLOOP
 
-A comprehensive full-stack task and finance management application built with React, TypeScript, and Supabase.
+A comprehensive productivity and finance management platform built with React, TypeScript, and Supabase.
 
 ## Features
 
@@ -89,8 +89,8 @@ A comprehensive full-stack task and finance management application built with Re
 
 1. **Clone and Install**
    ```bash
-   git clone <repository-url>
-   cd taskflow-manager
+   git clone <workloop-repository-url>
+   cd workloop
    npm install
    ```
 
@@ -180,4 +180,4 @@ This project is licensed under the MIT License.
 
 ## Support
 
-For support and questions, please open an issue in the repository.
+For support and questions about WORKLOOP, please open an issue in the repository.
