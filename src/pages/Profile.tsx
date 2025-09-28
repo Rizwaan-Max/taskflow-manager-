@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { User, Mail, Lock, Save } from 'lucide-react';
 import Header from '../components/Layout/Header';
 import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
 
 const Profile: React.FC = () => {
   const { user } = useAuth();
@@ -24,14 +25,18 @@ const Profile: React.FC = () => {
     setMessage('');
 
     try {
-      // In a real app, you would update the user profile here
-      // For now, we'll just simulate a successful update
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { error } = await supabase.auth.updateUser({
+        data: {
+          full_name: formData.fullName,
+        }
+      });
+
+      if (error) throw error;
       
       setMessage('Profile updated successfully!');
       setEditing(false);
     } catch (error) {
-      setMessage('Error updating profile');
+      setMessage(`Error updating profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -45,12 +50,19 @@ const Profile: React.FC = () => {
       return;
     }
 
+    if (passwordData.newPassword.length < 6) {
+      setMessage('New password must be at least 6 characters long');
+      return;
+    }
     setLoading(true);
     setMessage('');
 
     try {
-      // In a real app, you would update the password here
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { error } = await supabase.auth.updateUser({
+        password: passwordData.newPassword
+      });
+
+      if (error) throw error;
       
       setMessage('Password updated successfully!');
       setPasswordData({
@@ -59,7 +71,7 @@ const Profile: React.FC = () => {
         confirmPassword: '',
       });
     } catch (error) {
-      setMessage('Error updating password');
+      setMessage(`Error updating password: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setLoading(false);
     }

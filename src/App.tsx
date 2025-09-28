@@ -4,6 +4,8 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AppLayout from './components/Layout/AppLayout';
 import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
+import ForgotPasswordForm from './components/Auth/ForgotPasswordForm';
+import ResetPasswordForm from './components/Auth/ResetPasswordForm';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
@@ -29,6 +31,8 @@ const AppRoutes: React.FC = () => {
       {/* Public Routes */}
       <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginForm />} />
       <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <RegisterForm />} />
+      <Route path="/forgot-password" element={user ? <Navigate to="/dashboard" /> : <ForgotPasswordForm />} />
+      <Route path="/reset-password" element={user ? <Navigate to="/dashboard" /> : <ResetPasswordForm />} />
       
       {/* Protected Routes */}
       <Route path="/" element={
