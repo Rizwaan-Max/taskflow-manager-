@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell } from 'lucide-react';
+import NotificationDropdown from './NotificationDropdown';
 
 interface HeaderProps {
   title: string;
@@ -18,10 +18,7 @@ const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
         </div>
         
         <div className="flex items-center">
-          <button className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
-            <Bell className="h-5 w-5" />
-            <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
-          </button>
+          <NotificationDropdown />
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save } from 'lucide-react';
 import { Transaction } from '../../types';
+import { useNotifications } from '../../contexts/NotificationContext';
 
 interface TransactionFormProps {
   transaction?: Transaction | null;
@@ -13,6 +14,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   onSave, 
   onCancel 
 }) => {
+  const { addNotification } = useNotifications();
   const [type, setType] = useState<'income' | 'expense'>('expense');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
@@ -60,6 +62,25 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Add notification for transaction creation/update
+    const amountValue = parseFloat(amount);
+    if (!transaction) {
+      addNotification({
+        title: `${type === 'income' ? 'Income' : 'Expense'} Added`,
+        message: `Successfully recorded ${type}: ₹${amountValue.toFixed(2)} for ${category}`,
+        type: 'success',
+        actionUrl: '/finance'
+      });
+    } else {
+      addNotification({
+        title: 'Transaction Updated',
+        message: `Successfully updated ${type}: ₹${amountValue.toFixed(2)}`,
+        type: 'success',
+        actionUrl: '/finance'
+      });
+    }
+    
     onSave({
       type,
       amount: parseFloat(amount),

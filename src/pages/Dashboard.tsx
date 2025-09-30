@@ -6,10 +6,12 @@ import QuickActions from '../components/Dashboard/QuickActions';
 import RecentActivity from '../components/Dashboard/RecentActivity';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
+import { useNotifications } from '../contexts/NotificationContext';
 import { Task, Transaction, Note } from '../types';
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
+  const { addNotification } = useNotifications();
   const [stats, setStats] = useState({
     totalTasks: 0,
     completedTasks: 0,
@@ -26,6 +28,19 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     if (user) {
       fetchDashboardData();
+      // Add welcome notification for new users
+      const userCreatedAt = new Date(user.created_at || '');
+      const now = new Date();
+      const hoursSinceCreation = (now.getTime() - userCreatedAt.getTime()) / (1000 * 60 * 60);
+      
+      if (hoursSinceCreation < 24) {
+        addNotification({
+          title: 'Welcome to WORKLOOP!',
+          message: 'Explore your dashboard and start organizing your productivity workflow.',
+          type: 'info',
+          actionUrl: '/dashboard'
+        });
+      }
     }
   }, [user]);
 

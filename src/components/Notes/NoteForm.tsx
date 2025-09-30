@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save, Palette } from 'lucide-react';
 import { Note } from '../../types';
+import { useNotifications } from '../../contexts/NotificationContext';
 
 interface NoteFormProps {
   note?: Note | null;
@@ -9,6 +10,7 @@ interface NoteFormProps {
 }
 
 const NoteForm: React.FC<NoteFormProps> = ({ note, onSave, onCancel }) => {
+  const { addNotification } = useNotifications();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
@@ -47,6 +49,24 @@ const NoteForm: React.FC<NoteFormProps> = ({ note, onSave, onCancel }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Add notification for note creation/update
+    if (!note) {
+      addNotification({
+        title: 'Note Created',
+        message: `Successfully created note: ${title}`,
+        type: 'success',
+        actionUrl: '/notes'
+      });
+    } else {
+      addNotification({
+        title: 'Note Updated',
+        message: `Successfully updated note: ${title}`,
+        type: 'success',
+        actionUrl: '/notes'
+      });
+    }
+    
     onSave({
       title,
       content: content || undefined,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save } from 'lucide-react';
 import { Task } from '../../types';
+import { useNotifications } from '../../contexts/NotificationContext';
 
 interface TaskFormProps {
   task?: Task | null;
@@ -9,6 +10,7 @@ interface TaskFormProps {
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ task, onSave, onCancel }) => {
+  const { addNotification } = useNotifications();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
@@ -27,6 +29,24 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSave, onCancel }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Add notification for task creation/update
+    if (!task) {
+      addNotification({
+        title: 'Task Created',
+        message: `Successfully created task: ${title}`,
+        type: 'success',
+        actionUrl: '/tasks'
+      });
+    } else {
+      addNotification({
+        title: 'Task Updated',
+        message: `Successfully updated task: ${title}`,
+        type: 'success',
+        actionUrl: '/tasks'
+      });
+    }
+    
     onSave({
       title,
       description: description || undefined,
