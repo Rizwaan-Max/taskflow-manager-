@@ -32,7 +32,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginForm />} />
       <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <RegisterForm />} />
       <Route path="/forgot-password" element={user ? <Navigate to="/dashboard" /> : <ForgotPasswordForm />} />
-      <Route path="/reset-password" element={user ? <Navigate to="/dashboard" /> : <ResetPasswordForm />} />
+      <Route path="/reset-password" element={<ResetPasswordForm />} />
       
       {/* Protected Routes */}
       <Route path="/" element={

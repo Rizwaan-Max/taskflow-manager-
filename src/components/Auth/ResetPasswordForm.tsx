@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import { updatePassword, supabase } from '../../lib/supabase';
 
 const ResetPasswordForm: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -13,14 +13,48 @@ const ResetPasswordForm: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [validToken, setValidToken] = useState(true);
+
+  // Handle the session from URL parameters
+  useEffect(() => {
+    const handleAuthCallback = async () => {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get('access_token');
+      const refreshToken = hashParams.get('refresh_token');
+      const type = hashParams.get('type');
+
+      if (accessToken && refreshToken && type === 'recovery') {
+        // Set the session
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken
+        });
+
+        if (error) {
+          setError('Invalid or expired reset link. Please request a new password reset.');
+          setValidToken(false);
+        }
+      }
+    };
+
+    handleAuthCallback();
+  }, []);
 
   useEffect(() => {
-    // Check if we have the necessary tokens from the URL
+    // Also check URL search params as fallback
     const accessToken = searchParams.get('access_token');
     const refreshToken = searchParams.get('refresh_token');
+    const type = searchParams.get('type');
     
-    if (!accessToken || !refreshToken) {
+    if (accessToken && refreshToken && type === 'recovery') {
+      // Handle session setting for search params
+      supabase.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      });
+    } else if (!window.location.hash.includes('access_token')) {
       setError('Invalid or expired reset link. Please request a new password reset.');
+      setValidToken(false);
     }
   }, [searchParams]);
 
@@ -41,9 +75,7 @@ const ResetPasswordForm: React.FC = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.updateUser({
-        password: password
-      });
+      const { error } = await updatePassword(password);
 
       if (error) {
         setError(error.message);
@@ -51,6 +83,8 @@ const ResetPasswordForm: React.FC = () => {
         setSuccess(true);
         // Redirect to login after 3 seconds
         setTimeout(() => {
+          // Sign out to clear the recovery session
+          supabase.auth.signOut();
           navigate('/login');
         }, 3000);
       }
@@ -79,6 +113,48 @@ const ResetPasswordForm: React.FC = () => {
             </p>
             <div className="animate-pulse text-sm text-gray-500">
               Redirecting in 3 seconds...
+            </div>
+            <button
+              onClick={() => {
+                supabase.auth.signOut();
+                navigate('/login');
+              }}
+              className="mt-4 text-blue-600 hover:text-blue-500 text-sm font-medium"
+            >
+              Go to Login Now
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!validToken) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-6 sm:space-y-8 p-6 sm:p-8 bg-white rounded-xl shadow-lg text-center">
+          <div className="mx-auto h-16 w-16 mb-4">
+            <img src="/workloop-logo.png" alt="WORKLOOP" className="h-full w-full object-contain" />
+          </div>
+          
+          <div className="text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Invalid Reset Link</h2>
+            <p className="text-sm sm:text-base text-gray-600 mb-6">
+              This password reset link is invalid or has expired. Please request a new password reset.
+            </p>
+            <div className="space-y-4">
+              <Link
+                to="/forgot-password"
+                className="w-full flex justify-center py-3 sm:py-4 px-4 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              >
+                Request New Reset Link
+              </Link>
+              <Link
+                to="/login"
+                className="w-full flex justify-center py-2 px-4 text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                Back to Login
+              </Link>
             </div>
           </div>
         </div>
