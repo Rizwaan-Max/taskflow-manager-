@@ -9,6 +9,25 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Helper function to get the correct redirect URL
+const getRedirectUrl = (path: string) => {
+  // In production, always use the production URL
+  if (typeof window !== 'undefined') {
+    const currentOrigin = window.location.origin;
+    
+    // If we're on localhost during development, use production URL for emails
+    if (currentOrigin.includes('localhost') || currentOrigin.includes('127.0.0.1')) {
+      return `https://taskflow-manager-ful-7jub.bolt.host${path}`;
+    }
+    
+    // Otherwise use current origin
+    return `${currentOrigin}${path}`;
+  }
+  
+  // Fallback to production URL
+  return `https://taskflow-manager-ful-7jub.bolt.host${path}`;
+};
+
 // Auth helpers
 export const signUp = async (email: string, password: string, fullName: string) => {
   const { data, error } = await supabase.auth.signUp({
@@ -38,7 +57,7 @@ export const signOut = async () => {
 
 export const resetPassword = async (email: string) => {
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${window.location.origin}/reset-password`,
+    redirectTo: getRedirectUrl('/reset-password'),
   });
   return { data, error };
 };

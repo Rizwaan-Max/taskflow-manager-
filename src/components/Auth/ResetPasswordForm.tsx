@@ -18,12 +18,16 @@ const ResetPasswordForm: React.FC = () => {
   // Handle the session from URL parameters
   useEffect(() => {
     const handleAuthCallback = async () => {
+      // Handle both hash and search params for better compatibility
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const searchParams = new URLSearchParams(window.location.search);
+      
       const accessToken = hashParams.get('access_token');
       const refreshToken = hashParams.get('refresh_token');
       const type = hashParams.get('type');
 
       if (accessToken && refreshToken && type === 'recovery') {
+        console.log('Setting recovery session with tokens');
         // Set the session
         const { error } = await supabase.auth.setSession({
           access_token: accessToken,
@@ -31,9 +35,17 @@ const ResetPasswordForm: React.FC = () => {
         });
 
         if (error) {
+          console.error('Session error:', error);
           setError('Invalid or expired reset link. Please request a new password reset.');
           setValidToken(false);
+        } else {
+          console.log('Recovery session set successfully');
+          setValidToken(true);
         }
+      } else {
+        console.log('Missing required parameters for password reset');
+        setError('Invalid or expired reset link. Please request a new password reset.');
+        setValidToken(false);
       }
     };
 
@@ -134,7 +146,7 @@ const ResetPasswordForm: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-6 sm:space-y-8 p-6 sm:p-8 bg-white rounded-xl shadow-lg text-center">
           <div className="mx-auto h-16 w-16 mb-4">
-            <img src="/workloop-logo.png" alt="WORKLOOP" className="h-full w-full object-contain" />
+            <img src="/Untitled design.png" alt="WORKLOOP" className="h-full w-full object-contain" />
           </div>
           
           <div className="text-center">

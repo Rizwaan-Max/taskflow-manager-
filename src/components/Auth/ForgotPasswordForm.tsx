@@ -46,8 +46,13 @@ const ForgotPasswordForm: React.FC = () => {
               We've sent a password reset link to <strong>{email}</strong>
             </p>
             <p className="text-sm text-gray-500 mb-6">
-              Click the link in the email to reset your password. If you don't see the email, check your spam folder.
+              Click the link in the email to reset your password. The link will redirect you to the secure reset page. If you don't see the email, check your spam folder.
             </p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+              <p className="text-xs text-blue-700">
+                <strong>Note:</strong> The reset link will work on any device and will redirect you to the secure password reset page.
+              </p>
+            </div>
           </div>
 
           <div className="space-y-4">
